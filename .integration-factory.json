@@ -2,301 +2,61 @@
   "schemaVersion": 1,
   "id": "gorgias-mcp",
   "kind": "provider-connector",
-  "artifactType": "connector",
-  "qualityVersion": 2,
+  "product": "pipmcp",
   "title": "Gorgias MCP server",
-  "description": "Find existing customers and explicitly create one customer record with an email channel.",
+  "description": "Use Gorgias with AI agents through one PipMCP API key, actual hosted schemas and governed execution.",
   "status": "ready",
   "verification": "mock-only",
   "releaseEligible": true,
+  "operationIds": [],
   "maintainer": "jannikco",
   "license": "MIT",
-  "product": "pipmcp",
-  "appSlug": "gorgias",
-  "appName": "Gorgias",
-  "operationIds": [
-    "gorgias_list_customers",
-    "gorgias_create_customer"
-  ],
-  "sourceRevision": "4ff98a7fac5ab27800965c042b00729ae713d7e3b2fe34d3492254c0ff15eb42",
+  "attributionSlug": "github-gorgias-mcp",
+  "sourceRevision": "93d6969f8db0816abd1fa19256c6e352f90bf53a63079c5fc9e0118ad031f032",
+  "qualityVersion": 2,
+  "artifactType": "connector",
   "evidence": [
-    "Actual tools/call and direct-provider request contract tests"
+    "Gateway HTTP transport fixtures",
+    "Generated stdio wrapper discovery/call fixtures"
   ],
   "provenance": [
     "https://dash.readme.com/api/v1/api-registry/209muffmufcb2cu"
   ],
-  "attributionSlug": "github-gorgias-mcp",
-  "connectorId": "gorgias",
-  "connector": {
-    "id": "gorgias",
-    "name": "Gorgias",
-    "version": "0.1.0",
-    "baseUrl": "https://{GORGIAS_SUBDOMAIN}.gorgias.com",
-    "auth": {
-      "type": "basic",
-      "usernameEnv": "GORGIAS_EMAIL",
-      "passwordEnv": "GORGIAS_API_KEY"
-    },
-    "tools": [
-      {
-        "name": "gorgias_list_customers",
-        "description": "List a bounded page of support customers.",
-        "method": "GET",
-        "path": "/api/customers",
-        "readOnly": true,
-        "approvalRequired": false,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "limit": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100
-            },
-            "cursor": {
-              "type": "string",
-              "minLength": 1
-            }
-          },
-          "required": [],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [],
-          "query": {
-            "limit": "limit",
-            "cursor": "cursor"
-          },
-          "body": {}
-        },
-        "sampleArguments": {
-          "limit": 10
-        },
-        "evidence": {
-          "state": "documented",
-          "providerLiveValidation": "not-run"
-        },
-        "provenance": [
-          "https://dash.readme.com/api/v1/api-registry/209muffmufcb2cu"
-        ]
-      },
-      {
-        "name": "gorgias_create_customer",
-        "description": "Create a customer with explicit contact channels; no message is sent.",
-        "method": "POST",
-        "path": "/api/customers",
-        "readOnly": false,
-        "approvalRequired": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "minLength": 1
-            },
-            "channels": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "email"
-                    ]
-                  },
-                  "address": {
-                    "type": "string",
-                    "format": "email"
-                  },
-                  "preferred": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "type",
-                  "address",
-                  "preferred"
-                ],
-                "additionalProperties": false
-              },
-              "minItems": 1
-            }
-          },
-          "required": [
-            "channels"
-          ],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [],
-          "query": {},
-          "body": {
-            "name": "name",
-            "channels": "channels"
-          }
-        },
-        "sampleArguments": {
-          "name": "Sandbox Example",
-          "channels": [
-            {
-              "type": "email",
-              "address": "sandbox@example.com",
-              "preferred": true
-            }
-          ]
-        },
-        "evidence": {
-          "state": "documented",
-          "providerLiveValidation": "not-run"
-        },
-        "provenance": [
-          "https://dash.readme.com/api/v1/api-registry/209muffmufcb2cu"
-        ]
-      }
-    ],
-    "workflow": {
-      "name": "Gorgias authorized workflow",
-      "description": "Find existing customers and explicitly create one customer record with an email channel.",
-      "steps": [
-        "gorgias_list_customers",
-        "gorgias_create_customer"
-      ]
-    },
-    "provenance": [
-      "https://dash.readme.com/api/v1/api-registry/209muffmufcb2cu"
-    ],
-    "sourceEvidence": {
-      "state": "documented",
-      "providerLiveValidation": "not-run",
-      "checkedAt": "2026-11-08",
-      "operationCount": 2,
-      "kind": "official-reference",
-      "sha256": "dcb623ce569b4ae8430de54ecb74eadff89d6a2056be414bc2fd48aa03abf08f",
-      "sources": [
-        {
-          "url": "https://dash.readme.com/api/v1/api-registry/209muffmufcb2cu",
-          "sha256": "dcb623ce569b4ae8430de54ecb74eadff89d6a2056be414bc2fd48aa03abf08f",
-          "checkedAt": "2026-11-08T13:11:28.797573+00:00"
-        }
-      ]
-    },
-    "setup": {
-      "requiresPipMcpAccount": false,
-      "credentialsHelpUrl": "https://dash.readme.com/api/v1/api-registry/209muffmufcb2cu",
-      "instructions": "Use your Gorgias account email as the Basic username and your personal API key as password. GORGIAS_SUBDOMAIN is the account label. Contact data and any downstream automations remain subject to your account permissions."
-    },
-    "sampleWarning": "Example IDs and email addresses are placeholders. Replace them with records and recipients you are authorized to access. Samples do not authorize writes. HTTP/fixture success does not prove provider execution or email delivery.",
-    "allowedHostSuffixes": [
-      "gorgias.com"
-    ],
-    "appSlug": "gorgias",
-    "repoId": "gorgias-mcp",
-    "product": "pipmcp",
-    "artifactType": "connector",
-    "sourceRevision": "4ff98a7fac5ab27800965c042b00729ae713d7e3b2fe34d3492254c0ff15eb42",
-    "capabilityEvidence": {
-      "local": {
-        "level": "Tested",
-        "operations": [
-          {
-            "name": "gorgias_list_customers",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          },
-          {
-            "name": "gorgias_create_customer",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          }
-        ],
-        "evidenceRefs": [
-          "Provider request/stdio contract tests"
-        ],
-        "mode": "local"
-      },
-      "managed": {
-        "level": "Documented",
-        "operations": [
-          {
-            "name": "gorgias_list_customers",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          },
-          {
-            "name": "gorgias_create_customer",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          }
-        ],
-        "evidenceRefs": [],
-        "mode": "managed"
-      }
-    },
-    "managedAvailability": {
-      "status": "listed",
-      "checkedAt": "2026-11-08T13:20:45.156456+00:00"
-    }
+  "utility": {
+    "problem": "Find existing customers and explicitly create one customer record with an email channel.",
+    "output": "Actual hosted tool schemas and durable governed execution receipts"
   },
+  "appSlug": "gorgias",
+  "appName": "Gorgias",
+  "connectorId": "gorgias",
+  "executionAuthority": "pipmcp-gateway",
+  "version": "1.0.0",
+  "agentReady": true,
   "capabilityEvidence": {
     "local": {
       "level": "Tested",
       "operations": [
         {
-          "name": "gorgias_list_customers",
+          "name": "gateway_transport",
           "level": "Tested",
+          "method": "contract-fixture",
           "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
-        },
-        {
-          "name": "gorgias_create_customer",
-          "level": "Tested",
-          "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
+            "Generated gateway/stdio fixtures"
+          ]
         }
       ],
       "evidenceRefs": [
-        "Provider request/stdio contract tests"
+        "Generated gateway/stdio fixtures"
       ],
       "mode": "local"
     },
     "managed": {
       "level": "Documented",
-      "operations": [
-        {
-          "name": "gorgias_list_customers",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        },
-        {
-          "name": "gorgias_create_customer",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        }
-      ],
+      "operations": [],
       "evidenceRefs": [],
       "mode": "managed"
     }
   },
-  "utility": {
-    "problem": "Find existing customers and explicitly create one customer record with an email channel.",
-    "output": "Actual provider API results through local MCP tools"
-  },
-  "providerDocs": "https://dash.readme.com/api/v1/api-registry/209muffmufcb2cu",
   "factory": "leadadapter-pipmcp",
-  "generatorVersion": 2
+  "generatorVersion": 3
 }

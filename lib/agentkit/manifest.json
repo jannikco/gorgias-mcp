@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "product": "pipmcp",
+  "credential": "PIPMCP_API_KEY",
+  "skills": [
+    {
+      "name": "pipmcp-gorgias",
+      "description": "Connect AI agents to Gorgias using one PipMCP API key and actual hosted tool discovery."
+    }
+  ],
+  "files": {
+    "skills/pipmcp-gorgias/SKILL.md": "bbacab063d55129a2267f45c9b27eb567196905982ef237b80a0efc47057d84b"
+  }
+}
