@@ -1,0 +1,21 @@
+{
+  "name": "gorgias-mcp",
+  "version": "0.2.0",
+  "description": "Find existing customers and explicitly create one customer record with an email channel.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "gorgias-mcp": "server.mjs"
+  },
+  "scripts": {
+    "start": "node example.mjs",
+    "server": "node server.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.4.0"
+  }
+}
